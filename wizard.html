@@ -1,0 +1,745 @@
+@model LegacyCapitalPayrollSystem.Employee
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title></title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="css/material-bootstrap-wizard.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="image-container set-full-height" style="background-image: url('assets/img/wizard-book.jpg')">
+        <!--   Creative Tim Branding   -->
+        <a href="">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="assets/img/new_logo.png">
+                </div>
+                <div class="brand">
+                    Brand
+                </div>
+            </div>
+        </a>
+
+        <!--  Made With Material Kit  -->
+        <a href="Home" class="made-with-mk">
+            <div class="brand">LC</div>
+            <div class="made-with"> <strong>Legacy Capital</strong></div>
+        </a>
+
+        <!--   Big container   -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <!--      Wizard container        -->
+                    <div class="wizard-container">
+                        <div class="card wizard-card" data-color="red" id="wizard">
+                        
+                                <div class="wizard-header">
+                                    <h3 class="wizard-title">
+                                        Add New Employee
+                                    </h3>
+                                    <h5></h5>
+                                </div>
+                                <div class="wizard-navigation">
+                                    <ul>
+                                        <li><a href="#Basic" data-toggle="tab">Basic Info</a></li>
+                                        <li><a href="#Organ" data-toggle="tab">Organisation</a></li>
+                                        <li><a href="#Bank" data-toggle="tab">Bank</a></li>
+                                        <li><a href="#Salary" data-toggle="tab">Salary Details</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="Basic">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Employee Code
+                                                        </label>
+
+                                                   
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            First Name
+                                                        </label>
+
+                                                        
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Middle Name
+                                                        </label>
+
+                                                       
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Last Name
+                                                        </label>
+
+                                                       
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="radio">
+                                                        <label>
+                                                            Male
+                                                            
+
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="radio">
+                                                        <label>
+                                                            Female
+                                                            
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="radio">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Date Of Birth
+                                                        </label>
+
+                                                        
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Date Hire
+                                                        </label>
+
+                                                        
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Cell Phone
+                                                        </label>
+
+                                                        <input class="form-control" type="number" name="PhoneMobile" />
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Home Phone
+                                                        </label>
+
+                                                        <input class="form-control" type="number" name="PhoneHome" />
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Email Address
+                                                        </label>
+
+                                                        <input class="form-control" type="email" name="Email" />
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Position
+                                                        </label>
+
+                                                        
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Rank
+                                                        </label>
+
+                                                        
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Grade
+                                                        </label>
+
+                                                        
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Grade Step
+                                                        </label>
+
+                                                        
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            SSNIT Number
+                                                        </label>
+
+                                                        
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Assignment
+                                                        </label>
+
+                                                        
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+
+                                                        <input type="file" class="form-control-file" name="picture">
+                                                       
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h4 class="info-text"> Let's start with the basic details.</h4>
+                                            </div>
+
+                                            <div class="col-sm-">
+                                                <div class="input-group">
+
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Employee Code</label>
+                                                        <input name="name" type="text" class="form-control" value="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="input-group">
+
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Your Password</label>
+                                                        <input name="name2" type="password" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-6">
+
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Country</label>
+                                                    <select class="form-control">
+                                                        <option disabled="" selected=""></option>
+                                                        <option value="Afghanistan"> Afghanistan </option>
+                                                        <option value="Albania"> Albania </option>
+                                                        <option value="Algeria"> Algeria </option>
+                                                        <option value="American Samoa"> American Samoa </option>
+                                                        <option value="Andorra"> Andorra </option>
+                                                        <option value="Angola"> Angola </option>
+                                                        <option value="Anguilla"> Anguilla </option>
+                                                        <option value="Antarctica"> Antarctica </option>
+                                                        <option value="...">...</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Daily Budget</label>
+                                                    <select class="form-control">
+                                                        <option disabled="" selected=""></option>
+                                                        <option value="Afghanistan"> < $100 </option>
+                                                        <option value="Albania"> $100 - $499 </option>
+                                                        <option value="Algeria"> $499 - $999 </option>
+                                                        <option value="American Samoa"> $999+ </option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div> -->
+                                    </div>
+
+
+
+                                    <div class="tab-pane" id="Organ">
+                                        <h4 class="info-text"></h4>
+                                        <div class="row">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="input-group">
+                                                            <div class="form-group label-floating">
+                                                                <label class="control-label">
+                                                                    Organisation Name
+                                                                </label>
+                                                                <input type="text" name="Name" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group">
+                                                            <div class="form-group label-floating">
+                                                                <label class="control-label">
+                                                                    Organisation Location
+                                                                </label>
+                                                                <input type="text" name="Location" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group">
+                                                            <div class="form-group label-floating">
+
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="input-group">
+                                                            <div class="form-group label-floating">
+                                                                <label class="control-label">
+                                                                    Department Name
+                                                                </label>
+
+                                                                <input type="text" name="DepartmentName" class="form-control">
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group">
+                                                            <div class="form-group label-floating">
+                                                                <label class="control-label">
+                                                                    Department Code
+                                                                </label>
+
+                                                                <input type="text" name="DepartmentCode" class="form-control">
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group">
+                                                            <div class="form-group label-floating">
+                                                                <label class="control-label">
+                                                                    Department Location
+                                                                </label>
+
+                                                                <input type="text" name="DepartmentLocation" class="form-control">
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="input-group">
+                                                            <div class="form-group label-floating">
+                                                                <label class="control-label">
+                                                                    District
+                                                                </label>
+
+                                                                <input type="text" name="DepartmentDistrict" class="form-control">
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group">
+                                                            <div class="form-group label-floating">
+                                                                <label class="control-label">
+                                                                    Region
+                                                                </label>
+
+                                                                <input type="text" name="DepartmentRegion" class="form-control">
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group">
+                                                            <div class="form-group label-floating">
+
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="Bank">
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Name
+                                                        </label>
+
+                                                        <input type="text" name="name" class="form-control">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Code
+                                                        </label>
+
+                                                        <input type="text" name="BankCode" class="form-control">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Branch Name
+                                                        </label>
+
+                                                        <input type="text" name="BranchName" class="form-control">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Location
+                                                        </label>
+
+                                                        <input type="text" name="Location" class="form-control">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Account Number
+                                                        </label>
+
+                                                        <input type="text" name="BankAccountNumber" class="form-control">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="tab-pane" id="Salary">
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Basic
+                                                        </label>
+
+                                                        <input type="text" name="Basic" class="form-control">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Statutory Deduction
+                                                        </label>
+
+                                                        <input type="text" name="TotalStatutoryDeduction" class="form-control">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Voluntary Deduction
+                                                        </label>
+
+                                                        <input type="text" name="TotalVoluntaryDeduction" class="form-control">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Total Allowance
+                                                        </label>
+
+                                                        <input type="text" name="TotalAllowance" class="form-control">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-1">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Gross Payment
+                                                        </label>
+
+                                                        <input type="text" name="TotalGrossPayment" class="form-control">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">
+                                                            Net Payment
+                                                        </label>
+
+                                                        <input type="text" name="NetAmount" class="form-control">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <div class="form-group label-floating">
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="wizard-footer">
+                                    <div class="pull-right">
+                                        <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Next' />
+                                        <input type='button' class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='save' />
+                                    </div>
+                                    <div class="pull-left">
+                                        <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
+
+                                        <div class="footer-checkbox">
+                                            <div class="col-sm-12">
+                                                <div class="checkbox">
+                                                    <!-- <label>
+                                                        <input type="checkbox" name="optionsCheckboxes">
+                                                    </label> -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            }
+
+                        </div>
+                    </div> <!-- wizard container -->
+                </div>
+            </div> <!-- row -->
+        </div> <!--  big container -->
+
+        <div class="footer">
+            
+            <!-- div class="container text-center">
+                  <i class=""></i> by <a href=""></a> <a href=""></a>
+            </div> -->
+        </div>
+    </div>
+    
+    <!--  Plugin for the Wizard -->
+    <script src="js/material-bootstrap-wizard.js"></script>
+</body>
+
+</html>

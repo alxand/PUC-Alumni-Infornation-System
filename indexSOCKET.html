@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+  <head>
+    <title></title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-material-datetimepicker.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; background: #eee; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px;  border-radius: 0.9em}
+      #messages li:nth-child(odd) { background: #fff; color:#008B8B; font-style: italic; font-weight: bold; }
+      #messages li:nth-child(even) { background: #eee; color: #6495ED; font-style: italic; font-weight: bold; }
+      #messages { margin-bottom: 40px }
+      #chat{
+        padding-top: 50px;
+        width: 600px;
+        margin:0px auto;
+      }
+    
+    </style>
+  </head>
+  <body>
+    <div >
+      <div class="row" id="chat" >
+        
+        <div class="col-md-12 col-sm-12">
+          <div class="row">
+              <div class="col-md-8 col-sm-12">
+                <ul id="messages"></ul>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-8">
+                <input id="m" class="form-control" autocomplete="off" />
+             </div>
+             <div class="col-md-6 col-sm-4">
+                <button class="btn btn-primary">Send</button>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <video id="localVideo" autoplay playsinline></video>
+          <video id="remoteVideo" autoplay playsinline></video>
+
+
+        <div>
+            <button id="startButton">Start</button>
+            <button id="callButton">Call</button>
+            <button id="hangupButton">Hang Up</button>
+        </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+           
+        </div>
+        <div class="col-md-4 col-sm-12">
+          
+        </div>
+      </div>
+    </div>
+    
+    
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="js/webrtc.module.js"></script>
+    <script>
+  $(function () {
+    var socket = io();
+    $('button').click(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(msg));
+    });
+
+  });
+</script>
+</script>
+<!--Material Design Javascript-->
+    <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+  </body>
+</html>

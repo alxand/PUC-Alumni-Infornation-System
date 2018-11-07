@@ -1,0 +1,61 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'index.js' ]
+2 info using npm@3.10.10
+3 info using node@v6.9.5
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData index.js
+8 silly fetchOtherPackageData index.js
+9 silly cache add args [ 'index.js', null ]
+10 verbose cache add spec index.js
+11 silly cache add parsed spec Result {
+11 silly cache add   raw: 'index.js',
+11 silly cache add   scope: null,
+11 silly cache add   escapedName: 'index.js',
+11 silly cache add   name: null,
+11 silly cache add   rawSpec: 'index.js',
+11 silly cache add   spec: 'C:\\wamp64\\www\\dev\\index.js',
+11 silly cache add   type: 'local' }
+12 silly addLocalTarball shasum (computed) f57de86a2976e86f70c260b07a06898312eca2db
+13 verbose addTmpTarball C:\wamp64\www\dev\index.js not in flight; adding
+14 verbose correctMkdir C:\Users\development\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+15 verbose addTmpTarball validating metadata from C:\wamp64\www\dev\index.js
+16 verbose tar unpack C:\wamp64\www\dev\index.js
+17 verbose tar unpacking to C:\Users\DEVELO~1\AppData\Local\Temp\npm-3884-531bf204\unpack-b91c4e72
+18 silly gentlyRm C:\Users\DEVELO~1\AppData\Local\Temp\npm-3884-531bf204\unpack-b91c4e72 is being purged
+19 verbose gentlyRm don't care about contents; nuking C:\Users\DEVELO~1\AppData\Local\Temp\npm-3884-531bf204\unpack-b91c4e72
+20 silly gunzTarPerm modes [ '777', '666' ]
+21 error not a package C:\wamp64\www\dev\index.js
+22 error addLocal Could not install C:\wamp64\www\dev\index.js
+23 silly fetchPackageMetaData Error: ENOENT: no such file or directory, open 'C:\Users\DEVELO~1\AppData\Local\Temp\npm-3884-531bf204\unpack-b91c4e72\package.json'
+23 silly fetchPackageMetaData     at Error (native)
+23 silly fetchPackageMetaData  error for index.js { Error: ENOENT: no such file or directory, open 'C:\Users\DEVELO~1\AppData\Local\Temp\npm-3884-531bf204\unpack-b91c4e72\package.json'
+23 silly fetchPackageMetaData     at Error (native)
+23 silly fetchPackageMetaData   errno: -4058,
+23 silly fetchPackageMetaData   code: 'ENOENT',
+23 silly fetchPackageMetaData   syscall: 'open',
+23 silly fetchPackageMetaData   path: 'C:\\Users\\DEVELO~1\\AppData\\Local\\Temp\\npm-3884-531bf204\\unpack-b91c4e72\\package.json' }
+24 silly rollbackFailedOptional Starting
+25 silly rollbackFailedOptional Finishing
+26 silly runTopLevelLifecycles Finishing
+27 silly install printInstalled
+28 verbose stack Error: ENOENT: no such file or directory, open 'C:\Users\DEVELO~1\AppData\Local\Temp\npm-3884-531bf204\unpack-b91c4e72\package.json'
+28 verbose stack     at Error (native)
+29 verbose cwd C:\wamp64\www\dev
+30 error Windows_NT 6.3.9600
+31 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "index.js"
+32 error node v6.9.5
+33 error npm  v3.10.10
+34 error path C:\Users\DEVELO~1\AppData\Local\Temp\npm-3884-531bf204\unpack-b91c4e72\package.json
+35 error code ENOENT
+36 error errno -4058
+37 error syscall open
+38 error enoent ENOENT: no such file or directory, open 'C:\Users\DEVELO~1\AppData\Local\Temp\npm-3884-531bf204\unpack-b91c4e72\package.json'
+39 error enoent ENOENT: no such file or directory, open 'C:\Users\DEVELO~1\AppData\Local\Temp\npm-3884-531bf204\unpack-b91c4e72\package.json'
+39 error enoent This is most likely not a problem with npm itself
+39 error enoent and is related to npm not being able to find a file.
+40 verbose exit [ -4058, true ]

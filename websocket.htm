@@ -1,0 +1,536 @@
+<html> 
+ 
+   <head> 
+      <title>Video Chat and Conferensing</title>
+      <link rel = "stylesheet" href = " "/>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+     <script type="text/javascript" src="./socket.io/socket.io.js"></script>
+   </head>
+	
+   <style>
+	
+      body { 
+         background: #eee; 
+         padding: 5% 0; 
+      } 
+		
+      video { 
+         background: black; 
+         border: 1px solid gray; 
+      }
+		
+      .call-page { 
+         position: relative; 
+         display: block; 
+         margin: 0 auto; 
+         width: 500px; 
+         height: 500px; 
+      } 
+		
+      #localVideo { 
+         width: 150px; 
+         height: 150px; 
+         position: absolute; 
+         top: 15px; 
+         right: 15px; 
+      }
+		
+      #remoteVideo { 
+         width: 500px; 
+         height: 500px; 
+      }
+		
+   </style>
+	
+   <body>
+	
+   <div id = "loginPage" class = "container text-center"> 
+	
+      <div class = "row"> 
+
+         <div class = "col-md-10 col-md-offset-6">
+            <h2> </h2> 
+            <label for = "usernameInput" class = "bmd-label-floating">Your Chat Name</label> 
+            <input type = "email" id = "usernameInput" c
+               lass = "form-control formgroup" placeholder="for example sammy" 
+               required="" autofocus = ""> 
+            <button id = "loginBtn" class = "btn btn-lg btn-primary btnblock">
+               login
+            </button>
+         </div> 
+      </div> 
+		
+   </div>
+	
+   <div id = "callPage" class = "call-page"> 
+      <video id = "localVideo" autoplay></video> 
+      <video id = "remoteVideo" autoplay></video>
+		
+      <div class = "row text-center"> 
+         <div class = "col-md-12"> 
+            <input id = "callToUsernameInput" type = "text"
+               placeholder = "username to call" /> 
+            <button id = "callBtn" class = "btn-success btn">Call</button> 
+            <button id = "hangUpBtn" class = "btn-danger btn">Hang Up</button> 
+         </div>	
+      </div> 
+		
+   </div>
+	
+   <script src=""></script> 
+   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	</script>
+<!--Material Design Javascript-->
+    <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+    <script type="text/javascript">
+      
+      //our username 
+var name; 
+var connectedUser;
+  
+//connecting to our signaling server
+var socket = io();
+socket.emit('client',{alex:'yes'});
+    
+
+//when we got a message from a signaling server 
+socket.on('message', function(msg) {
+  console.log("Got message", msg.data);
+  
+   var data = JSON.parse(msg.data); 
+  
+   switch(data.type) { 
+      case "login": 
+         handleLogin(data.success); 
+         break; 
+      //when somebody wants to call us 
+      case "offer": 
+         handleOffer(data.offer, data.name); 
+         break; 
+      case "answer": 
+         handleAnswer(data.answer); 
+         break; 
+      //when a remote peer sends an ice candidate to us 
+      case "candidate": 
+         handleCandidate(data.candidate); 
+         break; 
+      case "leave": 
+         handleLeave(); 
+         break; 
+      default: 
+         break; 
+   }
+});
+
+// connection error
+socket.emit('connect_failed', {status:'failed',info:'cannot connect to the server'});
+
+  
+//alias for sending JSON encoded messages 
+function send(message) { 
+   //attach the other peer username to our messages 
+   if (connectedUser) { 
+      message.name = connectedUser; 
+   } 
+  
+   send(JSON.stringify(message)); 
+};
+  
+//****** 
+//UI selectors block 
+//******
+ 
+var loginPage = document.querySelector('#loginPage'); 
+var usernameInput = document.querySelector('#usernameInput'); 
+var loginBtn = document.querySelector('#loginBtn'); 
+
+var callPage = document.querySelector('#callPage'); 
+var callToUsernameInput = document.querySelector('#callToUsernameInput');
+var callBtn = document.querySelector('#callBtn'); 
+
+var hangUpBtn = document.querySelector('#hangUpBtn');
+  
+var localVideo = document.querySelector('#localVideo'); 
+var remoteVideo = document.querySelector('#remoteVideo'); 
+
+var yourConn; 
+var stream;
+  
+callPage.style.display = "none";
+
+// Login when the user clicks the button 
+loginBtn.addEventListener("click", function (event) { 
+   name = usernameInput.value;
+  
+   if (name.length > 0) { 
+      socket.emit('login',{type:'login',name:name});  
+   }
+  
+});
+
+socket.on('LoginFail',(data)=>{
+   if (data.success === false) { 
+      alert("Ooops...try a different username"); 
+   }
+});
+socket.on('LoginSuccess',(data)=>{
+   if (data.success === true) { 
+      loginPage.style.display = "none"; 
+      callPage.style.display = "block";
+    
+      //********************** 
+      //Starting a peer connection 
+      //********************** 
+    
+         const mediaStreamConstraints = {
+         video: true,
+
+         };
+         // Video element where stream will be placed.
+         const localVideo = document.querySelector('video');
+
+
+         // Handles success by adding the MediaStream to the video element.
+         function gotLocalMediaStream(mediaStream) {
+             localStream = mediaStream;
+            localVideo.srcObject = mediaStream;
+         }
+
+         // Handles error by logging a message to the console with the error message.
+         function handleLocalMediaStreamError(error) {
+           console.log('navigator.getUserMedia error: ', error);
+         }
+
+         // Initializes media stream.
+         navigator.mediaDevices.getUserMedia(mediaStreamConstraints)
+         .then(gotLocalMediaStream).catch(handleLocalMediaStreamError);
+   
+      
+         //using Google public stun server 
+         var configuration = { 
+            "iceServers": [{ "url": "stun:stun2.1.google.com:19302" }]
+         }; 
+   }  
+   }
+);
+
+socket.on('candidate',function (data) {
+   console.log(data.candidate + data.type);
+    yourConn.addIceCandidate(new RTCIceCandidate(candidate)); 
+})
+
+/*function handleLogin(success) { 
+   if (success === false) { 
+      alert("Ooops...try a different username"); 
+   } else { 
+      loginPage.style.display = "none"; 
+      callPage.style.display = "block";
+    
+      //********************** 
+      //Starting a peer connection 
+      //********************** 
+    
+      //getting local video stream 
+      navigator.webkitGetUserMedia({ video: true, audio: true }, function (myStream) { 
+         stream = myStream; 
+      
+         //displaying local video stream on the page 
+         localVideo.src = window.URL.createObjectURL(stream);
+      
+         //using Google public stun server 
+         var configuration = { 
+            "iceServers": [{ "url": "stun:stun2.1.google.com:19302" }]
+         }; 
+      
+         yourConn = new webkitRTCPeerConnection(configuration); 
+      
+         // setup stream listening 
+         yourConn.addStream(stream); 
+      
+         //when a remote user adds stream to the peer connection, we display it 
+         yourConn.onaddstream = function (e) { 
+            remoteVideo.src = window.URL.createObjectURL(e.stream); 
+         };
+      
+         // Setup ice handling 
+         yourConn.onicecandidate = function (event) { 
+            if (event.candidate) { 
+               send({ 
+                  type: "candidate", 
+                  candidate: event.candidate 
+               }); 
+            } 
+         };  
+      
+      }, function (error) { 
+         console.log(error); 
+      }); 
+    
+   } 
+}; */
+// handles connections
+
+//initiating a call 
+callBtn.addEventListener("click", function () { 
+   var callToUsername = callToUsernameInput.value;
+      console.log(callToUsername);
+   if (callToUsername.length > 0) { 
+      connectedUser = callToUsername;
+      var servers = { 
+            "iceServers": [{ "url": "stun:stun2.1.google.com:19302" }]
+         }; 
+         socket.emit('offer',{ 
+            type: "offer", 
+            name : callToUsername
+         }); 
+   } 
+});
+  
+//when somebody sends us an offer 
+socket.on('offer', (data)=> { 
+       console.log('This is offer received by client sending answer');
+       
+         console.log(data.name);
+         socket.emit('answer',{ 
+         type: 'answer', 
+         name: data.name
+      });
+});
+  
+//when we got an answer from a remote user
+socket.on('answer', function(data) {
+   console.log('answer from server to initiate peer connection');
+       
+   call();
+});
+  
+socket.on('leave', function(data) {
+   console.log('hanging up from peer connection');
+       
+   hangup();
+});
+
+   
+//hang up 
+hangUpBtn.addEventListener("click", function () { 
+   socket.emit('leave', {type:'leave', name:name}); 
+});
+  
+function handleLeave() { 
+   connectedUser = null; 
+   remoteVideo.src = null; 
+  
+   yourConn.close(); 
+   yourConn.onicecandidate = null; 
+   yourConn.onaddstream = null; 
+};
+
+var startTime;
+var localVideo = document.getElementById('localVideo');
+var remoteVideo = document.getElementById('remoteVideo');
+
+var localStream;
+var pc1;
+var pc2;
+var offerOptions = {
+  offerToReceiveAudio: 1,
+  offerToReceiveVideo: 1
+};
+
+function getName(pc) {
+  return (pc === pc1) ? 'pc1' : 'pc2';
+}
+
+function getOtherPc(pc) {
+  return (pc === pc1) ? pc2 : pc1;
+}
+
+function gotStream(stream) {
+  trace('Received local stream');
+  localVideo.srcObject = stream;
+  localStream = stream;
+  callButton.disabled = false;
+}
+
+function start() {
+  trace('Requesting local stream');
+  startButton.disabled = true;
+  navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: true
+  })
+    .then(gotStream)
+    .catch(function(e) {
+      alert('getUserMedia() error: ' + e.name);
+    });
+}
+
+function call() {
+  callBtn.disabled = true;
+  hangUpBtn.disabled = false;
+  trace('Starting call');
+  startTime = window.performance.now();
+  var videoTracks = localStream.getVideoTracks();
+  var audioTracks = localStream.getAudioTracks();
+  if (videoTracks.length > 0) {
+    trace('Using video device: ' + videoTracks[0].label);
+  }
+  if (audioTracks.length > 0) {
+    trace('Using audio device: ' + audioTracks[0].label);
+  }
+  var servers = null;
+  pc1 = new RTCPeerConnection(servers);
+  trace('Created local peer connection object pc1');
+  pc1.onicecandidate = function(e) {
+    onIceCandidate(pc1, e);
+  };
+  pc2 = new RTCPeerConnection(servers);
+  trace('Created remote peer connection object pc2');
+  pc2.onicecandidate = function(e) {
+    onIceCandidate(pc2, e);
+  };
+  pc1.oniceconnectionstatechange = function(e) {
+    onIceStateChange(pc1, e);
+  };
+  pc2.oniceconnectionstatechange = function(e) {
+    onIceStateChange(pc2, e);
+  };
+  pc2.onaddstream = gotRemoteStream;
+
+  pc1.addStream(localStream);
+  trace('Added local stream to pc1');
+
+  trace('pc1 createOffer start');
+  pc1.createOffer(
+    offerOptions
+  ).then(
+    onCreateOfferSuccess,
+    onCreateSessionDescriptionError
+  );
+}
+
+
+
+
+
+function onCreateSessionDescriptionError(error) {
+  trace('Failed to create session description: ' + error.toString());
+}
+
+function onCreateOfferSuccess(desc) {
+  trace('Offer from pc1\n' + desc.sdp);
+  trace('pc1 setLocalDescription start');
+  pc1.setLocalDescription(desc).then(
+    function() {
+      onSetLocalSuccess(pc1);
+    },
+    onSetSessionDescriptionError
+  );
+  trace('pc2 setRemoteDescription start');
+  pc2.setRemoteDescription(desc).then(
+    function() {
+      onSetRemoteSuccess(pc2);
+    },
+    onSetSessionDescriptionError
+  );
+  trace('pc2 createAnswer start');
+  // Since the 'remote' side has no media stream we need
+  // to pass in the right constraints in order for it to
+  // accept the incoming offer of audio and video.
+  pc2.createAnswer().then(
+    onCreateAnswerSuccess,
+    onCreateSessionDescriptionError
+  );
+}
+
+function onSetLocalSuccess(pc) {
+  trace(getName(pc) + ' setLocalDescription complete');
+}
+
+function onSetRemoteSuccess(pc) {
+  trace(getName(pc) + ' setRemoteDescription complete');
+}
+
+function onSetSessionDescriptionError(error) {
+  trace('Failed to set session description: ' + error.toString());
+}
+
+function gotRemoteStream(e) {
+  remoteVideo.srcObject = e.stream;
+  trace('pc2 received remote stream');
+}
+
+function onCreateAnswerSuccess(desc) {
+  trace('Answer from pc2:\n' + desc.sdp);
+  trace('pc2 setLocalDescription start');
+  pc2.setLocalDescription(desc).then(
+    function() {
+      onSetLocalSuccess(pc2);
+    },
+    onSetSessionDescriptionError
+  );
+  trace('pc1 setRemoteDescription start');
+  pc1.setRemoteDescription(desc).then(
+    function() {
+      onSetRemoteSuccess(pc1);
+    },
+    onSetSessionDescriptionError
+  );
+}
+
+function onIceCandidate(pc, event) {
+  getOtherPc(pc).addIceCandidate(event.candidate)
+    .then(
+      function() {
+        onAddIceCandidateSuccess(pc);
+      },
+      function(err) {
+        onAddIceCandidateError(pc, err);
+      }
+    );
+  trace(getName(pc) + ' ICE candidate: \n' + (event.candidate ?
+    event.candidate.candidate : '(null)'));
+}
+
+function onAddIceCandidateSuccess(pc) {
+  trace(getName(pc) + ' addIceCandidate success');
+}
+
+function onAddIceCandidateError(pc, error) {
+  trace(getName(pc) + ' failed to add ICE Candidate: ' + error.toString());
+}
+
+function onIceStateChange(pc, event) {
+  if (pc) {
+    trace(getName(pc) + ' ICE state: ' + pc.iceConnectionState);
+    console.log('ICE state change event: ', event);
+  }
+}
+
+function hangup() {
+  trace('Ending call');
+  pc1.close();
+  pc2.close();
+  pc1 = null;
+  pc2 = null;
+  hangUpBtn.disabled = true;
+  callBtn.disabled = false;
+}
+
+// logging utility
+function trace(arg) {
+  var now = (window.performance.now() / 1000).toFixed(3);
+  console.log(now + ': ', arg);
+}
+
+    </script>
+   </body>
+	
+</html>		  

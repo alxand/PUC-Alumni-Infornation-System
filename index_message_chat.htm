@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Instant Messaging</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #eee; padding: 3px; position: absolute; bottom: 0; width: 45%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; color: #00008B; font-style: italic; font-size: 15px; }
+      #mess{ width: 600px; margin: 0 auto }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  $(function () {
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('from_server', function(data) {
+      $('#messages').append($('<li>').text(data.server));
+      // body...
+    });
+  });
+</script>
+  </head>
+  <body>
+    <div id="mess">
+      <ul id="messages"></ul>
+      <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    </div>
+  </body>
+</html>
